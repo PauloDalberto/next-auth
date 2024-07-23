@@ -1,0 +1,40 @@
+.modal-container{
+  height: 100vh;
+  width: 100%;
+  background-color: rgba(0,0,0, .1);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 2000;
+  display: flex;
+  justify-content: center;
+  align-items: end;
+  margin-bottom: 20px;
+}
+
+.modal{
+  width: 500px;
+  height: 100px;
+  background-color:var(--c1);
+  display: flex;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  position: relative;
+}
+
+.modal-text{
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 12px;
+}
+
+.modal-text P{
+  color: var(--c12);
+}
+
+.title-icon{
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
