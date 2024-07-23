@@ -1,6 +1,6 @@
 'use client'
 
-import { EnvelopeIcon, LockClosedIcon, UserIcon } from '@heroicons/react/24/outline';
+import { ArrowLeftIcon, EnvelopeIcon, LockClosedIcon, UserIcon } from '@heroicons/react/24/outline';
 import './register.scss'
 import Image from 'next/image';
 import InputWithIcon from '../components/inputIcon/inputIcon';
@@ -9,6 +9,7 @@ import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
 import { auth } from '../services/firebaseConfig';
 import { useState } from 'react';
 import ModalSuccess from '../components/modal/modalSuccess';
+import Link from 'next/link';
 
 
 export default function Register(){
@@ -36,7 +37,10 @@ export default function Register(){
   
   return(
     <div className='container'>
+
       <section className='register'>
+        <Link href={'/'} className='back-page'><ArrowLeftIcon width={24} height={24}/></Link>
+
         <h1>Crie sua conta</h1>
         <p className='subtitle'>Insira seus dados para entrar na melhor loja de skins!</p>
 
