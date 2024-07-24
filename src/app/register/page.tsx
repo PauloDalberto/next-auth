@@ -30,7 +30,7 @@ export default function Register(){
       setTimeout(() => {
         setShowModal(false);
       }, 2000); 
-  }
+    }
   }
   
   return(

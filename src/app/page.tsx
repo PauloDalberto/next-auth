@@ -11,6 +11,7 @@ import { useState } from 'react';
 import { auth } from './services/firebaseConfig';
 import Container from './components/container/container';
 import InfosContainer from './components/infos-container/infosContainer';
+import ModalSuccess from './components/modal/modalSuccess';
 
 export default function Home() {
   const [email, setEmail] = useState('');
@@ -19,9 +20,17 @@ export default function Home() {
     signInWithEmailAndPassword,
   ] = useSignInWithEmailAndPassword(auth);
 
-  function handleSignIn(e: React.MouseEvent<HTMLButtonElement>){
+  const [showModal, setShowModal] = useState(false);
+
+  async function handleSignIn(e: React.MouseEvent<HTMLButtonElement>){
     e.preventDefault();
-    signInWithEmailAndPassword(email, password)
+    const success = await signInWithEmailAndPassword(email, password);
+    if (success) {
+      setShowModal(true);
+      setTimeout(() => {
+        setShowModal(false);
+      }, 2000); 
+    }
   }
 
   return (
@@ -50,6 +59,8 @@ export default function Home() {
       <div className='container-image'>
         <Image src="/image2.png" alt='skin de counter strike' width={10000} height={10000} className='image'/>
       </div>
+
+      {showModal && <ModalSuccess />}
     </Container>
   );
 }
