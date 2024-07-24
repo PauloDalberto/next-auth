@@ -3,3 +3,17 @@
   grid-template-columns: 1fr 1fr;
   transition: .3s;
 }
+
+@media (max-width: 850px){
+  .container{
+    grid-template-columns: 2fr 1fr;
+    transition: .3s;
+  }
+}
+
+@media (max-width: 650px){
+  .container{
+    grid-template-columns: 1fr;
+    transition: .3s;
+  }
+}
