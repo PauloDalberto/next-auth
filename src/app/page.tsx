@@ -9,6 +9,8 @@ import Link from 'next/link';
 import {  useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
 import { useState } from 'react';
 import { auth } from './services/firebaseConfig';
+import Container from './components/container/container';
+import InfosContainer from './components/infos-container/infosContainer';
 
 export default function Home() {
   const [email, setEmail] = useState('');
@@ -25,17 +27,10 @@ export default function Home() {
     signInWithEmailAndPassword(email, password)
   }
 
-  if(loading){
-    return <p>Carregando...</p>
-  }
-  if(user){
-    return console.log(user)
-  }
-  
   return (
-    <div className='container'>
-      <section className='login'>
-        <h1>Bem vindo de volta!</h1>
+    <Container>
+      <InfosContainer>
+        <h1 className='title'>Bem vindo de volta!</h1>
         <p className='subtitle'>Insira suas informações para prosseguir para o site!</p>
 
         <form className='form'>
@@ -53,12 +48,11 @@ export default function Home() {
           <hr />
           <p>Não tem conta? <Link className='register' href="/register">Registre-se</Link></p>
         </div>
-        
-      </section>
+      </InfosContainer>
 
       <div className='container-image'>
         <Image src="/image2.png" alt='skin de counter strike' width={10000} height={10000} className='image'/>
       </div>
-    </div>
+    </Container>
   );
 }

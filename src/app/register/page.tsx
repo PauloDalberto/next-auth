@@ -10,6 +10,8 @@ import { auth } from '../services/firebaseConfig';
 import { useState } from 'react';
 import ModalSuccess from '../components/modal/modalSuccess';
 import Link from 'next/link';
+import Container from '../components/container/container';
+import InfosContainer from '../components/infos-container/infosContainer';
 
 
 export default function Register(){
@@ -36,12 +38,11 @@ export default function Register(){
   }
   
   return(
-    <div className='container'>
-
-      <section className='register'>
+    <Container>
+      <InfosContainer>
         <Link href={'/'} className='back-page'><ArrowLeftIcon width={24} height={24}/></Link>
 
-        <h1>Crie sua conta</h1>
+        <h1 className='title'>Crie sua conta</h1>
         <p className='subtitle'>Insira seus dados para entrar na melhor loja de skins!</p>
 
         <form className='form'>
@@ -59,14 +60,13 @@ export default function Register(){
 
           <button onClick={handleSignOut} type='submit' className='buttonRegister'>Registrar-se</button>
         </form>
-        
-      </section>
+      </InfosContainer>
 
       <div className='container-image'>
         <Image src="/image2.png" alt='skin de counter strike' width={10000} height={10000} className='image'/>
       </div>
 
       {showModal && <ModalSuccess />}
-    </div>
+    </Container>
   )
 }
