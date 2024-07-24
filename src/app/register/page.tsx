@@ -13,15 +13,11 @@ import Link from 'next/link';
 import Container from '../components/container/container';
 import InfosContainer from '../components/infos-container/infosContainer';
 
-
 export default function Register(){
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [
     createUserWithEmailAndPassword,
-    user,
-    loading,
-    error,
   ] = useCreateUserWithEmailAndPassword(auth);
 
   const [showModal, setShowModal] = useState(false);

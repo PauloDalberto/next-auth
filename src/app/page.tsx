@@ -17,9 +17,6 @@ export default function Home() {
   const [password, setPassword] = useState('');
   const [
     signInWithEmailAndPassword,
-    user,
-    loading,
-    error,
   ] = useSignInWithEmailAndPassword(auth);
 
   function handleSignIn(e: React.MouseEvent<HTMLButtonElement>){

@@ -14,7 +14,7 @@ import InfosContainer from "../components/infos-container/infosContainer";
 
 export default function ForgotPassword(){
   const [email, setEmail] = useState('');
-  const [sendPasswordResetEmail, sending, error] = useSendPasswordResetEmail(auth);
+  const [sendPasswordResetEmail] = useSendPasswordResetEmail(auth);
 
   const actionCodeSettings = {
     url: 'http://localhost:3000/',
