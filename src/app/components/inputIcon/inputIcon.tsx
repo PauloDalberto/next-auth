@@ -16,7 +16,13 @@ export default function InputWithIcon({ htmlFor, Icon, placeHolder, name, id, ty
     <label htmlFor={htmlFor}>
       <Icon className='icon' width={24} height={24}/>
     </label>
-    <input type={type} name={name} id={id} placeholder={placeHolder} onChange={onChange}/>
+    <input 
+      type={type} 
+      name={name} 
+      id={id} 
+      placeholder={placeHolder} 
+      onChange={onChange}
+    />
   </div>
  );
 }

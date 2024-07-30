@@ -16,6 +16,7 @@ import InfosContainer from '../components/infos-container/infosContainer';
 export default function Register(){
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  
   const [
     createUserWithEmailAndPassword,
   ] = useCreateUserWithEmailAndPassword(auth);
@@ -32,7 +33,7 @@ export default function Register(){
       }, 2000); 
     }
   }
-  
+
   return(
     <Container>
       <InfosContainer>
@@ -43,16 +44,16 @@ export default function Register(){
 
         <form className='form'>
           <label htmlFor="username">Nome de usuário</label>
-          <InputWithIcon htmlFor='username' Icon={UserIcon} id='username' name='username' placeHolder='Nome' type='text' />
+          <InputWithIcon htmlFor='username' Icon={UserIcon} id='username' name='username' placeHolder='Nome' type='text' register={'username'}/>
 
           <label htmlFor="email">Email</label>
-          <InputWithIcon htmlFor='email' Icon={EnvelopeIcon} id='email' name='email' placeHolder='email@email.com' type='text' onChange={e => setEmail(e.target.value)}/>
+          <InputWithIcon htmlFor='email' Icon={EnvelopeIcon} id='email' name='email' placeHolder='email@email.com' type='text' onChange={e => setEmail(e.target.value)} register={'email'}/>
 
           <label htmlFor="password">Senha</label>
-          <InputWithIcon htmlFor='password' Icon={LockClosedIcon} id='password' name='password' placeHolder='senha123' type='password' onChange={e => setPassword(e.target.value)}/>
+          <InputWithIcon htmlFor='password' Icon={LockClosedIcon} id='password' name='password' placeHolder='senha123' type='password' onChange={e => setPassword(e.target.value)} register={'password'}/>
 
           <label htmlFor="repeatPassword">Repita a senha</label>
-          <InputWithIcon htmlFor='repeatPassword' Icon={LockClosedIcon} id='repeatPassword' name='repeatPassword' placeHolder='senha123' type='password'/>
+          <InputWithIcon htmlFor='repeatPassword' Icon={LockClosedIcon} id='repeatPassword' name='repeatPassword' placeHolder='senha123' type='password' register={'repeatPassword'}/>
 
           <button onClick={handleSignOut} type='submit' className='buttonRegister'>Registrar-se</button>
         </form>
