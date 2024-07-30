@@ -3,7 +3,6 @@
 import { ArrowLeftIcon, EnvelopeIcon, LockClosedIcon, UserIcon } from '@heroicons/react/24/outline';
 import './register.scss'
 import Image from 'next/image';
-import InputWithIcon from '../components/inputIcon/inputIcon';
 
 import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
 import { auth } from '../services/firebaseConfig';
@@ -12,6 +11,7 @@ import ModalSuccess from '../components/modal/modalSuccess';
 import Link from 'next/link';
 import Container from '../components/container/container';
 import InfosContainer from '../components/infos-container/infosContainer';
+import { Input } from '../components/inputIcon/inputIcon';
 
 export default function Register(){
   const [email, setEmail] = useState('');
@@ -44,16 +44,16 @@ export default function Register(){
 
         <form className='form'>
           <label htmlFor="username">Nome de usuário</label>
-          <InputWithIcon htmlFor='username' Icon={UserIcon} id='username' name='username' placeHolder='Nome' type='text'/>
+          <Input id='username' name='username' placeholder='Nome' type='text' Icon={UserIcon} htmlFor='username'/>
 
           <label htmlFor="email">Email</label>
-          <InputWithIcon htmlFor='email' Icon={EnvelopeIcon} id='email' name='email' placeHolder='email@email.com' type='text' onChange={e => setEmail(e.target.value)} />
+          <Input id='email' name='email' placeholder='email@email.com' type='text' onChange={e => setEmail(e.target.value)} Icon={EnvelopeIcon} htmlFor='email'/>
 
           <label htmlFor="password">Senha</label>
-          <InputWithIcon htmlFor='password' Icon={LockClosedIcon} id='password' name='password' placeHolder='senha123' type='password' onChange={e => setPassword(e.target.value)} />
+          <Input id='password' name='password' placeholder='senha123' type='password' onChange={e => setPassword(e.target.value)} Icon={LockClosedIcon} htmlFor='password'/>
 
           <label htmlFor="repeatPassword">Repita a senha</label>
-          <InputWithIcon htmlFor='repeatPassword' Icon={LockClosedIcon} id='repeatPassword' name='repeatPassword' placeHolder='senha123' type='password'/>
+          <Input id='repeatPassword' name='repeatPassword' placeholder='senha123' type='password' Icon={LockClosedIcon} htmlFor='repeatPassword'/>
 
           <button onClick={handleSignOut} type='submit' className='buttonRegister'>Registrar-se</button>
         </form>

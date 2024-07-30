@@ -1,7 +1,7 @@
 'use client'
 
 import { EnvelopeIcon, LockClosedIcon } from '@heroicons/react/24/outline';
-import InputWithIcon from './components/inputIcon/inputIcon';
+import {Input} from './components/inputIcon/inputIcon';
 import './home.scss'
 import Image from 'next/image';
 import Link from 'next/link';
@@ -41,10 +41,10 @@ export default function Home() {
 
         <form className='form'>
           <label htmlFor="email">Email</label>
-          <InputWithIcon htmlFor='email' Icon={EnvelopeIcon} id='email' name='email' placeHolder='email@email.com' type='text' onChange={e => setEmail(e.target.value)}/>
+          <Input id='email' name='email' placeholder='email@email.com' type='text' onChange={e => setEmail(e.target.value)} Icon={EnvelopeIcon} htmlFor='email'/>
           
           <label htmlFor="password">Senha</label>
-          <InputWithIcon htmlFor='password' Icon={LockClosedIcon} id='password' name='password' placeHolder='senha123' type='password' onChange={e => setPassword(e.target.value)}/>
+          <Input id='password' name='password' placeholder='senha123' type='password' onChange={e => setPassword(e.target.value)} Icon={LockClosedIcon} htmlFor='password'/>
 
           <button onClick={handleSignIn} type='submit' className='buttonLogin'>Entrar</button>
         </form>

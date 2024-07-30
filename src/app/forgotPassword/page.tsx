@@ -1,7 +1,7 @@
 'use client'
 
-import { ArrowLeftIcon, CheckCircleIcon, LockClosedIcon } from "@heroicons/react/24/outline";
-import InputWithIcon from "../components/inputIcon/inputIcon";
+import { ArrowLeftIcon, LockClosedIcon } from "@heroicons/react/24/outline";
+import {Input} from "../components/inputIcon/inputIcon";
 import Image from 'next/image';
 import './forgotPassword.scss'
 import Link from "next/link";
@@ -30,7 +30,7 @@ export default function ForgotPassword(){
 
         <form className='form'>
           <label htmlFor="email">Senha</label>
-          <InputWithIcon htmlFor='email' Icon={LockClosedIcon} id='email' name='email' placeHolder='email@email.com' type='text' onChange={(e) => setEmail(e.target.value)}/>
+          <Input id='email' name='email' placeholder='email@email.com' type='text' htmlFor="email" onChange={(e) => setEmail(e.target.value)} Icon={LockClosedIcon}/>
 
           <button type='submit' className='buttonRegister' onClick={async () => {
           const success = await sendPasswordResetEmail(
