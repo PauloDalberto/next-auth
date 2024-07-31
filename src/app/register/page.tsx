@@ -1,7 +1,7 @@
-'use client'
+'use client';
 
 import { ArrowLeftIcon, EnvelopeIcon, LockClosedIcon, UserIcon } from '@heroicons/react/24/outline';
-import './register.scss'
+import './register.scss';
 import Image from 'next/image';
 
 import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
@@ -15,47 +15,50 @@ import { Input } from '../components/inputIcon/inputIcon';
 
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
-import { zodResolver } from '@hookform/resolvers/zod'
+import { zodResolver } from '@hookform/resolvers/zod';
 
 const schema = z.object({
-  username: z.string().min(3, "Por favor, informe um nome válido"),
-  email: z.string().email("Digite um email valido")
-})
+  username: z.string().min(4, "O usuário deve ter pelo menos 4 caracteres!"),
+  email: z.string().email("Digite um email válido!"),
+  password: z.string().min(6, "A senha deve ter pelo menos 6 caracteres!"),
+  confirmPassword: z.string().min(6, "A senha deve ter pelo menos 6 caracteres!")
+}).refine((data) => data.password === data.confirmPassword, {
+  message: "As senhas não são iguais!",
+  path: ["confirmPassword"]
+});
+;
 
-export default function Register(){
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+type DataProps = z.infer<typeof schema>;
 
-  const [
-    createUserWithEmailAndPassword,
-  ] = useCreateUserWithEmailAndPassword(auth);
-
+export default function Register() {
   const [showModal, setShowModal] = useState(false);
 
-  async function handleSignOut(e: React.MouseEvent<HTMLButtonElement>){
-    e.preventDefault();
-    const success = await createUserWithEmailAndPassword(email, password);
-    if (success) {
-      setShowModal(true);
-      setTimeout(() => {
-        setShowModal(false);
-      }, 2000); 
-    }
-  }
-
-
-  type DataProps = z.infer<typeof schema>
+  const [
+    createUserWithEmailAndPassword
+  ] = useCreateUserWithEmailAndPassword(auth);
 
   const { register, handleSubmit, formState: { errors }} = useForm<DataProps>({
     mode: 'onBlur',
     resolver: zodResolver(schema)
   });
 
-  const handleForm = (data: any) => {
-    console.log(data)
+  async function handleForm(data: DataProps) {
+    try {
+      const success = await createUserWithEmailAndPassword(data.email, data.password);
+      if (success) {
+        setShowModal(true);
+        setTimeout(() => {
+          setShowModal(false);
+        }, 2000);
+      } else {
+        console.error("Erro");
+      }
+    } catch (e) {
+      console.error("Erro criar user", e);
+    }
   }
 
-  return(
+  return (
     <Container>
       <InfosContainer>
         <Link href={'/'} className='back-page'><ArrowLeftIcon width={24} height={24}/></Link>
@@ -68,15 +71,15 @@ export default function Register(){
           <Input id='username' placeholder='Nome' type='text' Icon={UserIcon} htmlFor='username' {...register('username')} helperText={errors.username?.message}/>
 
           <label htmlFor="email">Email</label>
-          <Input id='email' placeholder='email@email.com' type='text' onChange={e => setEmail(e.target.value)} Icon={EnvelopeIcon} htmlFor='email' helperText={errors.username?.message}/>
+          <Input id='email' placeholder='email@email.com' type='text' Icon={EnvelopeIcon} htmlFor='email' {...register('email')} helperText={errors.email?.message}/>
 
           <label htmlFor="password">Senha</label>
-          <Input id='password' name='password' placeholder='senha123' type='password' onChange={e => setPassword(e.target.value)} Icon={LockClosedIcon} htmlFor='password'/>
+          <Input id='password'  placeholder='senha123' type='password' Icon={LockClosedIcon} htmlFor='password' {...register('password')} helperText={errors.password?.message}/>
 
           <label htmlFor="repeatPassword">Repita a senha</label>
-          <Input id='repeatPassword' name='repeatPassword' placeholder='senha123' type='password' Icon={LockClosedIcon} htmlFor='repeatPassword'/>
+          <Input id='repeatPassword'  placeholder='senha123' type='password' Icon={LockClosedIcon} htmlFor='repeatPassword' {...register('confirmPassword')} helperText={errors.confirmPassword?.message}/>
 
-          <button onChange={handleSignOut} type='submit' className='buttonRegister'>Registrar-se</button>
+          <button type='submit' className='buttonRegister'>Registrar-se</button>
         </form>
       </InfosContainer>
 
@@ -86,5 +89,5 @@ export default function Register(){
 
       {showModal && <ModalSuccess />}
     </Container>
-  )
+  );
 }
