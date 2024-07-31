@@ -26,7 +26,6 @@ const schema = z.object({
   message: "As senhas não são iguais!",
   path: ["confirmPassword"]
 });
-;
 
 type DataProps = z.infer<typeof schema>;
 
@@ -51,7 +50,7 @@ export default function Register() {
           setShowModal(false);
         }, 2000);
       } else {
-        console.error("Erro");
+        console.error("Erro");  //colocar o set modal error aqui
       }
     } catch (e) {
       console.error("Erro criar user", e);
