@@ -8,17 +8,33 @@ import Link from "next/link";
 
 import { useSendPasswordResetEmail } from 'react-firebase-hooks/auth';
 import { auth } from "../services/firebaseConfig";
-import { useState } from "react";
 import Container from "../components/container/container";
 import InfosContainer from "../components/infos-container/infosContainer";
 
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
+
+const schema = z.object({
+  email: z.string().email("Digite um email válido!"),
+})
+
+type DataProps = z.infer<typeof schema>;
+
 export default function ForgotPassword(){
-  const [email, setEmail] = useState('');
   const [sendPasswordResetEmail] = useSendPasswordResetEmail(auth);
 
-  const actionCodeSettings = {
-    url: 'http://localhost:3000/',
-  };
+  const { register, handleSubmit, formState: { errors }} = useForm<DataProps>({
+    mode: 'onBlur',
+    resolver: zodResolver(schema)
+  });
+
+  async function handleEmail(data: DataProps) {
+    const success = await sendPasswordResetEmail(data.email);
+    if (success) {
+      alert('Sent email');
+    }
+  }
 
   return(
     <Container>
@@ -28,19 +44,11 @@ export default function ForgotPassword(){
         <h1 className="title">Recuperar senha</h1>
         <p className='subtitle'>Insira seu email e iremos enviar sua nova senha!</p>
 
-        <form className='form'>
+        <form className='form' onSubmit={handleSubmit(handleEmail)}>
           <label htmlFor="email">Senha</label>
-          <Input id='email' name='email' placeholder='email@email.com' type='text' htmlFor="email" onChange={(e) => setEmail(e.target.value)} Icon={LockClosedIcon}/>
+          <Input id='email' placeholder='email@email.com' type='text' htmlFor="email" {...register('email')} Icon={LockClosedIcon} helperText={errors.email?.message}/>
 
-          <button type='submit' className='buttonRegister' onClick={async () => {
-          const success = await sendPasswordResetEmail(
-            email,
-            actionCodeSettings
-          );
-          if (success) {
-            alert('Sent email');
-          }
-        }}>Enviar email</button>
+          <button type='submit' className='buttonRegister' >Enviar email</button>
         </form>
       </InfosContainer>
 
