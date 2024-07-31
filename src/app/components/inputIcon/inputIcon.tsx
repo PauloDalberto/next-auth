@@ -9,7 +9,7 @@ interface InputProps extends Props {
   helperText?: string;
 }
 
-export const Input = forwardRef<HTMLInputElement, InputProps>(
+const Input = forwardRef<HTMLInputElement, InputProps>(
   ({ type, name, Icon, helperText, htmlFor, ...props }, ref) => {
     const inputClass = helperText ? "input error" : "input";
 
@@ -30,3 +30,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
     );
   }
 );
+
+Input.displayName = 'Input'; // Definindo o display name
+
+export { Input };
